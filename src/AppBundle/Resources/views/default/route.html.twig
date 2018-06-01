@@ -4,14 +4,8 @@
     <div id="wrapper">
         <div id="container">
             <ul>
-            {% for grouping, subRoutes in routes %}
-                <li><h2>{{  grouping }}</h2>
-                    <ul>
-                        {% for route in subRoutes %}
-                            <li style="background-color: #{{ route.attributes.color|trim }} !important;"><a href ="{{ path('route', {'routeId': route.id}) }}">{{ route.attributes.long_name }}{{  route.attributes.short_name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </li>
+            {% for item in schedule %}
+                <li><b>{{ item.relationships.stop.data.id }}</b> - <b>Arrival</b>: {{ item.attributes.arrival_time|date('h:m') }} <b>Departure</b>: {{ item.attributes.departure_time|date('h:m')  }}</li>
             {% endfor %}
             </ul>
         </div>

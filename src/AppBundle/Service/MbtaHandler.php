@@ -24,16 +24,31 @@ class MbtaHandler
         $this->client = $client;
     }
 
-    public function getRoutes() {
-       $response = $this->client->get('routes');
-       $response = $response->getBody();
-       $json = json_decode($response);
+    public function getRoutes()
+    {
+        $json = $this->client->getJsonResponse('routes');
+        $routes = [];
+        foreach ($json->data as $route) {
+            $routes[$route->attributes->description][] = $route;
+        }
 
-       $routes = [];
-       foreach ($json->data as $route) {
-           $routes[$route->attributes->description][] = $route;
-       }
-
-       return $routes;
+        return $routes;
     }
+
+    public function getSchedule($routeId)
+    {
+        $json = $this->client->getJsonResponse('schedules', [
+            'query' => [
+            'filter' => [
+                'route' => $routeId,
+                'stop_sequence' => 'first, last'
+            ],
+            'sort' => 'arrival_time'
+            ]
+        ]);
+
+        return $json->data;
+    }
+
+
 }

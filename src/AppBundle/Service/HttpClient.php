@@ -26,4 +26,17 @@ class HttpClient extends Client
             ]
         );
     }
+
+    /**
+     * @param       $uri
+     * @param array $options
+     * @return mixed
+     */
+    public function getJsonResponse($uri, $options = [])
+    {
+        $response = $this->get($uri, $options);
+        $response = $response->getBody();
+
+        return json_decode($response);
+    }
 }
