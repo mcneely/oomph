@@ -31,7 +31,7 @@ class MbtaHandler
 
        $routes = [];
        foreach ($json->data as $route) {
-           $routes[$route->attributes->description] = $route;
+           $routes[$route->attributes->description][] = $route;
        }
 
        return $routes;

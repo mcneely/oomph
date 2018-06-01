@@ -5,10 +5,10 @@
         <div id="container">
             <ul>
             {% for grouping, subRoutes in routes %}
-                <li>{{ grouping }}
+                <li><h2>{{  grouping }}</h2>
                     <ul>
                         {% for route in subRoutes %}
-                            <li>{{ route.attributes.long_name }}</li>
+                            <li style="background-color: #{{ route.attributes.color|trim }} !important;"><a href ="">{{ route.attributes.long_name }}{{  route.attributes.short_name }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -46,6 +46,13 @@
     }
     ul {
         list-style-type: none;
+    }
+
+    li {
+        text-align: center;
+    }
+    li a {
+        display: block;
     }
 </style>
 {% endblock %}
